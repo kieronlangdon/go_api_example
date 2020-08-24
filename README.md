@@ -35,6 +35,11 @@ GET api/books/{id}
 DELETE api/books/{id}
 ```
 
+### Delete all Books
+``` bash
+DELETE api/books
+```
+
 ### Create Book
 ``` bash
 POST api/books
