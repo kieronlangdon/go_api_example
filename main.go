@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 	"math/rand"
 	"net/http"
@@ -101,6 +102,16 @@ func deleteBooks(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(books)
 }
 
+// Get All Books just titles
+func getBookTitles(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	s := fmt.Sprintf("Book Count: %d Books", (len(books)))
+	json.NewEncoder(w).Encode(s)
+
+	for _, item := range books {
+		json.NewEncoder(w).Encode(item.Title)
+	}
+}
 func main() {
 	// Init Router
 	r := mux.NewRouter()
@@ -115,6 +126,7 @@ func main() {
 	r.HandleFunc("/api/books/{id}", updateBooks).Methods("PUT")
 	r.HandleFunc("/api/books/{id}", deleteBook).Methods("DELETE")
 	r.HandleFunc("/api/books", deleteBooks).Methods("DELETE")
+	r.HandleFunc("/api/books/titles/", getBookTitles).Methods("GET")
 
 	log.Fatal(http.ListenAndServe(":8001", r))
 }
