@@ -10,8 +10,11 @@ Files for course from https://github.com/bradtraversy/go_restapi
 
 
 ``` bash
-# Install mux router
+# Install mods
 go get -u github.com/gorilla/mux
+go get -u github.com/go-resty/resty
+go get -u github.com/stretchr/testify/assert
+go get -u github.com/stretchr/testify/suite
 ```
 
 ``` bash
@@ -48,7 +51,7 @@ POST api/books
 # {
 #   "isbn":"4545454",
 #   "title":"Book Three",
-#   "author":{"firstname":"Harry",  "lastname":"White"}
+#   "author":{"firstname":"Harry",  "lastnae":"White"}
 # }
 ```
 
