@@ -31,6 +31,7 @@ var books []Book
 // Get All Books
 func getBooks(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(books)
 }
 
@@ -105,20 +106,17 @@ func deleteBooks(w http.ResponseWriter, r *http.Request) {
 // Get All Books just titles
 func getBookTitles(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
-	s := fmt.Sprintf("Book Count: %d Books", (len(books)))
+	s := fmt.Sprintf("Book %d Books", (len(books)))
 	json.NewEncoder(w).Encode(s)
 
 	for _, item := range books {
 		json.NewEncoder(w).Encode(item.Title)
 	}
 }
-func main() {
-	// Init Router
-	r := mux.NewRouter()
 
-	// Mock Data -@todo - Implement DB
-	books = append(books, Book{ID: "1", Isbn: "448743", Title: "Book one", Author: &Author{Firstname: "John", Lastname: "Doe"}})
-	books = append(books, Book{ID: "2", Isbn: "875468", Title: "Book two", Author: &Author{Firstname: "Steve", Lastname: "Smith"}})
+//Router handlers
+func Router() *mux.Router {
+	r := mux.NewRouter()
 	// Route Handlers / Endpoints
 	r.HandleFunc("/api/books", getBooks).Methods("GET")
 	r.HandleFunc("/api/books/{id}", getBook).Methods("GET")
@@ -127,6 +125,14 @@ func main() {
 	r.HandleFunc("/api/books/{id}", deleteBook).Methods("DELETE")
 	r.HandleFunc("/api/books", deleteBooks).Methods("DELETE")
 	r.HandleFunc("/api/books/titles/", getBookTitles).Methods("GET")
-
 	log.Fatal(http.ListenAndServe(":8001", r))
+	return r
+}
+
+func main() {
+	http.Handle("/", Router())
+	Router()
+	// Mock Data -@todo - Implement DB
+	books = append(books, Book{ID: "1", Isbn: "448743", Title: "Book one", Author: &Author{Firstname: "John", Lastname: "Doe"}})
+	books = append(books, Book{ID: "2", Isbn: "875468", Title: "Book two", Author: &Author{Firstname: "Steve", Lastname: "Smith"}})
 }
