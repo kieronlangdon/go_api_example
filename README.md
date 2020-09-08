@@ -1,6 +1,7 @@
 # go_api_example
 
 Files for course from https://github.com/bradtraversy/go_restapi
+Modified since then!
 
  Simple GO Lang REST API
 
