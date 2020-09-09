@@ -52,7 +52,7 @@ POST api/books
 # {
 #   "isbn":"4545454",
 #   "title":"Book Three",
-#   "author":{"firstname":"Harry",  "lastnae":"White"}
+#   "author":{"firstname":"Harry",  "lastname":"White"}
 # }
 ```
 
@@ -68,6 +68,17 @@ PUT api/books/{id}
 # }
 
 ```
+### Docker Build
+``` bash
+Set Paths:
+export GOPATH=/Users/$USER/go
+export PATH=$PATH:$GOPATH/bin;
 
+From
+$GOPATH/src/github.com/$USER/restapi
+docker build -t my-go-app .
 
+Enter container using alpine shell after starting:
+docker run -it --rm my-go-app  /bin/ash
+```
 ```
