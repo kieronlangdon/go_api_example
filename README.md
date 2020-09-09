@@ -80,5 +80,8 @@ docker build -t my-go-app .
 
 Enter container using alpine shell after starting:
 docker run -it --rm my-go-app  /bin/ash
+Run container in detached mode
+docker run -p 8080:8001 -d my-go-app
+
 ```
 ```
