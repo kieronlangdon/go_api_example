@@ -29,6 +29,6 @@ FROM alpine
 # copy the executable from the builder image
 COPY --from=builder /go/src/restapi .
 
-ENTRYPOINT ["/restapi"]
+CMD ["/bin/sh"]
 
 EXPOSE 8080
