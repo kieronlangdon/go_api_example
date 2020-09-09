@@ -125,14 +125,16 @@ func Router() *mux.Router {
 	r.HandleFunc("/api/books/{id}", deleteBook).Methods("DELETE")
 	r.HandleFunc("/api/books", deleteBooks).Methods("DELETE")
 	r.HandleFunc("/api/books/titles/", getBookTitles).Methods("GET")
+	log.Print("Server Started function...")
 	log.Fatal(http.ListenAndServe(":8001", r))
 	return r
 }
 
 func main() {
-	http.Handle("/", Router())
-	Router()
+	log.Print("Server Started...")
 	// Mock Data -@todo - Implement DB
 	books = append(books, Book{ID: "1", Isbn: "448743", Title: "Book one", Author: &Author{Firstname: "John", Lastname: "Doe"}})
 	books = append(books, Book{ID: "2", Isbn: "875468", Title: "Book two", Author: &Author{Firstname: "Steve", Lastname: "Smith"}})
+	http.Handle("/", Router())
+	Router()
 }
