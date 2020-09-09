@@ -78,7 +78,7 @@ From:
 $GOPATH/src/github.com/$USER/restapi
 docker build -t my-go-app .
 
-Enter container using alpine shell after starting:
+Enter container using Almquist shell after starting:
 docker run -it --rm my-go-app  /bin/ash
 Run container in detached mode
 docker run -p 8080:8001 -d my-go-app
