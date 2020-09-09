@@ -1,5 +1,6 @@
 FROM golang:alpine3.12 AS builder
 RUN apk add git
+ENV CGO_ENABLED=0
 
 ########
 # Prep
@@ -18,16 +19,22 @@ RUN go get github.com/gorilla/mux && \
   go get github.com/go-resty/resty && \
   go get github.com/stretchr/testify
 
+# build the package tests
+RUN if [ ! -d "package.test" ] ; then echo Test package does not exist ; else rm-rf package.test ; fi
+RUN go test -c . -o package.test
+
 #build the go app
 RUN go build -o ./restapi ./main.go
 
 ########
 # Package into runtime image
 ########
-FROM alpine
+
+#FROM alpine
 
 # copy the executable from the builder image
-COPY --from=builder /go/src/restapi .
+
+#COPY --from=builder /go/src/restapi .
 
 CMD ["/bin/sh"]
 
