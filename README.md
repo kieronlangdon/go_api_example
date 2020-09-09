@@ -68,13 +68,13 @@ PUT api/books/{id}
 # }
 
 ```
-### Docker Build
+### Build steps
 ``` bash
 Set Paths:
 export GOPATH=/Users/$USER/go
 export PATH=$PATH:$GOPATH/bin;
 
-From
+From:
 $GOPATH/src/github.com/$USER/restapi
 docker build -t my-go-app .
 
