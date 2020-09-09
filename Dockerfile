@@ -27,14 +27,12 @@ RUN go test -c . -o package.test
 RUN go build -o ./restapi ./main.go
 
 ########
-# Package into runtime image
+# Package into runtime image (smaller image size)
 ########
-
-#FROM alpine
+FROM alpine as release
 
 # copy the executable from the builder image
-
-#COPY --from=builder /go/src/restapi .
+COPY --from=builder /go/src/restapi .
 
 CMD ["/bin/sh"]
 
