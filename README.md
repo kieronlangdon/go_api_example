@@ -82,6 +82,11 @@ Enter container using Almquist shell after starting:
 docker run -it --rm my-go-app  /bin/ash
 Run container in detached mode
 docker run -p 8080:8001 -d my-go-app
+Run Unit tests only
+go test -v -run Unit
+Run tests with coverage report
+go test -coverprofile=c.out
+See report in browser (generates html file)
+go tool cover -html=c.out -o coverage.html
 
-```
 ```
