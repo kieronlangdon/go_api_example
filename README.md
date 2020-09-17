@@ -90,3 +90,26 @@ See report in browser (generates html file)
 go tool cover -html=c.out -o coverage.html
 
 ```
+### Minikube setup
+```
+minikube delete
+minikube start
+eval $(minikube docker-env)
+```
+### Minikube steps for error:   
+https://registry-1.docker.io/v2 connection error while pulling image   
+`minikube ssh`   
+`sudo vi /etc/systemd/network/10-eth1.network` add `DNS=8.8.8.8` under [Network]   
+`sudo vi /etc/systemd/network/20-dhcp.network` add `DNS=8.8.8.8` under [Network]   
+`sudo systemctl restart systemd-networkd`    
+### Local registry steps:   
+**Start registry**
+`docker run -d -p 5000:5000 --restart=always --name registry registry:2`   
+**Build image**
+`docker build -t my-go-app .`   
+**Tag image**
+`docker tag my-go-app:latest localhost:5000/my-go-app`   
+**Push to local registry**
+`docker push localhost:5000/my-go-app`   
+**Remove image local - does not remove from registry**
+`docker image remove localhost:5000/my-go-app`   
