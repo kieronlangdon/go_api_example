@@ -103,13 +103,13 @@ https://registry-1.docker.io/v2 connection error while pulling image
 `sudo vi /etc/systemd/network/20-dhcp.network` add `DNS=8.8.8.8` under [Network]   
 `sudo systemctl restart systemd-networkd`    
 ### Local registry steps:   
-**Start registry**
+**Start registry**   
 `docker run -d -p 5000:5000 --restart=always --name registry registry:2`   
-**Build image**
+**Build image**   
 `docker build -t my-go-app .`   
-**Tag image**
+**Tag image**   
 `docker tag my-go-app:latest localhost:5000/my-go-app`   
-**Push to local registry**
+**Push to local registry**   
 `docker push localhost:5000/my-go-app`   
-**Remove image local - does not remove from registry**
+**Remove image local - does not remove from registry**   
 `docker image remove localhost:5000/my-go-app`   
