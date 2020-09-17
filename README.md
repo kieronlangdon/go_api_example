@@ -113,3 +113,5 @@ https://registry-1.docker.io/v2 connection error while pulling image
 `docker push localhost:5000/my-go-app`   
 **Remove image local - does not remove from registry**   
 `docker image remove localhost:5000/my-go-app`   
+### Create deployment in minikube
+minikube kubectl create deployment testdev -- --image=localhost:5000/my-go-app
