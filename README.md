@@ -137,4 +137,14 @@ We will see an image with no repo & tag, check the imageId, it's the same as the
 **Tag image in minikube docker daemon**   
 `docker tag c22dbba37091 localhost:5000/my-go-app`   
 ### Create deployment in minikube   
-`minikube kubectl create deployment testdev -- --image=localhost:5000/my-go-app`   
+`minikube kubectl create deployment testdev -- --image=localhost:5000/my-go-app`  
+### Alter deployment yaml to pull from minikube local
+Get deployment yaml
+`minikube kubectl get deploy testdev -- -o yaml --export >> testdev.yaml`
+In deployment yaml
+`imagePullPolicy: Always`
+to
+`imagePullPolicy: Never`
+Apply yaml
+`minikube kubectl apply -- -f testdev.yaml`
+
