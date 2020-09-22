@@ -126,7 +126,7 @@ https://registry-1.docker.io/v2 connection error while pulling image
 **Check to see all images**      
 `docker images`   
 Notice that the image we just created and tagged is not here? We're using minikube's docker daemon now   
-**Push to cache in mimikube**   
+**Push to cache in minikube**   
 `minikube cache add localhost:5000/my-go-app`   
 This will fail as the image doesn't exist in this daemon   
 So in another terminal OR after undoing `eval $(minikube docker-env)`   
