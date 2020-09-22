@@ -147,4 +147,12 @@ change to
 `imagePullPolicy: Never`   
 Apply yaml   
 `minikube kubectl apply -- -f testdev.yaml`   
-
+### Expose container port using service   
+Set deployment to expose deployment of type node port   
+`minikube kubectl expose deployment testdev -- --type=NodePort`   
+Get port that has been exposed externally   
+` minikube kubectl get svc testdev`   
+Get minikube ip   
+`minikube ip`   
+Test interaction with cluster   
+`curl 192.168.50:32145/api/books`     
