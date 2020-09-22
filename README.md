@@ -115,3 +115,26 @@ https://registry-1.docker.io/v2 connection error while pulling image
 `docker image remove localhost:5000/my-go-app`   
 ### Create deployment in minikube
 `minikube kubectl create deployment testdev -- --image=localhost:5000/my-go-app`   
+
+### Alt steps for runnning minikube and to avoid going down a rabbit hole of nonsense   
+**Build image**   
+`docker build -t my-go-app .`   
+**Tag image**   
+`docker tag my-go-app:latest localhost:5000/my-go-app`   
+**Point your terminal to use the docker daemon inside minikube**   
+`eval $(minikube docker-env)`   
+**Check to see all images**      
+`docker images`   
+Notice that the image we just created and tagged is not here? We're using minikube's docker daemon now   
+**Push to cache in mimikube**   
+`minikube cache add localhost:5000/my-go-app`   
+This will fail as the image doesn't exist in this daemon   
+So in another terminal OR after undoing `eval $(minikube docker-env)`   
+Re-run `minikube cache add localhost:5000/my-go-app`   
+**Check image is in minikube cache**   
+`minikube cache list`   
+We will see an image with no repo & tag, check the imageId, it's the same as the local image in non minikube docker   
+**Tag image in minikube docker daemon**   
+`docker tag c22dbba37091 localhost:5000/my-go-app`   
+### Create deployment in minikube   
+`minikube kubectl create deployment testdev -- --image=localhost:5000/my-go-app`   
