@@ -141,9 +141,9 @@ We will see an image with no repo & tag, check the imageId, it's the same as the
 ### Alter deployment yaml to pull from minikube local   
 Get deployment yaml   
 `minikube kubectl get deploy testdev -- -o yaml --export >> testdev.yaml`   
-In deployment yaml   
+In testdev.yaml   
 `imagePullPolicy: Always`   
-to   
+change to   
 `imagePullPolicy: Never`   
 Apply yaml   
 `minikube kubectl apply -- -f testdev.yaml`   
