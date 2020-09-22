@@ -136,7 +136,7 @@ Re-run `minikube cache add localhost:5000/my-go-app`
 We will see an image with no repo & tag, check the imageId, it's the same as the local image in non minikube docker   
 **Tag image in minikube docker daemon**   
 `docker tag c22dbba37091 localhost:5000/my-go-app`   
-### Create deployment in minikube   
+**Create deployment in minikube**   
 `minikube kubectl create deployment testdev -- --image=localhost:5000/my-go-app`  
 ### Alter deployment yaml to pull from minikube local   
 Get deployment yaml   
