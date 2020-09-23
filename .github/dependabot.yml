@@ -1,8 +1,10 @@
+# Set update schedule for GitHub Actions
+
 version: 2
-update_configs:
-  - package_manager: "go:modules"
+updates:
+
+  - package-ecosystem: "github-actions"
     directory: "/"
-    update_schedule: "daily"
-  - package_manager: "go:dep"
-    directory: "/"
-    update_schedule: "daily"
+    schedule:
+      # Check for updates to GitHub Actions every weekday
+      interval: "daily"
