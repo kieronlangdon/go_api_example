@@ -14,26 +14,23 @@ WORKDIR /go/src/restapi
 # Build Go Wrapper
 ########
 
-# Install go dependencies
-RUN go get github.com/gorilla/mux && \
-  go get github.com/go-resty/resty && \
-  go get github.com/stretchr/testify
+# Get the dependencies
+RUN go get -v -t -d ./...
 
-# build the package tests
+# Build the package tests
 RUN if [ ! -d "package.test" ] ; then echo Test package does not exist ; else rm-rf package.test ; fi
 RUN go test -c . -o package.test
+RUN go test -v -run Unit
 
-#build the go app
-RUN go build -o ./restapi ./main.go
+# Build the go app
+RUN go build -o ./restapi *.go
 
 ########
 # Package into runtime image (smaller image size)
 ########
 FROM alpine as release
 
-# copy the executable from the builder image
+# Copy the executable from the builder image
 COPY --from=builder /go/src/restapi .
-
-# CMD ["/bin/sh"]
 
 CMD ["/restapi"]

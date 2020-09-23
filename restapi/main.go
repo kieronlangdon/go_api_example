@@ -7,6 +7,8 @@ import (
 	"math/rand"
 	"net/http"
 	"strconv"
+	"sync/atomic"
+	"time"
 
 	"github.com/gorilla/mux"
 )
@@ -116,6 +118,14 @@ func getBookTitles(w http.ResponseWriter, r *http.Request) {
 
 //Router handlers
 func Router() *mux.Router {
+	isReady := &atomic.Value{}
+	isReady.Store(false)
+	go func() {
+		log.Printf("Readyz probe is negative by default...")
+		time.Sleep(10 * time.Second)
+		isReady.Store(true)
+		log.Printf("Readyz probe is positive.")
+	}()
 	r := mux.NewRouter()
 	// Route Handlers / Endpoints
 	r.HandleFunc("/api/books", getBooks).Methods("GET")
@@ -125,6 +135,10 @@ func Router() *mux.Router {
 	r.HandleFunc("/api/books/{id}", deleteBook).Methods("DELETE")
 	r.HandleFunc("/api/books", deleteBooks).Methods("DELETE")
 	r.HandleFunc("/api/books/titles/", getBookTitles).Methods("GET")
+
+	r.HandleFunc("/healthz", healthz)
+	r.HandleFunc("/readyz", readyz(isReady))
+
 	log.Print("Server Started function...")
 	log.Fatal(http.ListenAndServe(":8001", r))
 	return r
