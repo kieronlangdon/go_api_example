@@ -34,6 +34,10 @@ GET api/books
 GET api/books/{id}
 ```
 
+### Get All Books just titles    
+``` bash 
+GET api/books/titles/
+```
 ### Delete Book
 ``` bash
 DELETE api/books/{id}
@@ -68,6 +72,17 @@ PUT api/books/{id}
 # }
 
 ```
+### Health probe
+``` bash
+GET healthz
+```
+
+### Readiness probe
+``` bash
+GET readyz
+```
+
+
 ### Build steps
 ``` bash
 Set Paths:
