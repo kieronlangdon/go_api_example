@@ -149,7 +149,7 @@ Apply yaml
 `minikube kubectl apply -- -f testdev.yaml`   
 ### Expose container port using service   
 Set deployment to expose deployment of type node port   
-`minikube kubectl expose deployment testdev -- --type=NodePort`   
+`minikube kubectl expose deployment testdev -- --type=NodePort --port=8001`   
 Get port that has been exposed externally   
 ` minikube kubectl get svc testdev`   
 Get minikube ip   
