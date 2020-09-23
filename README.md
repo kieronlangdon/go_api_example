@@ -131,7 +131,7 @@ https://registry-1.docker.io/v2 connection error while pulling image
 ### Create deployment in minikube
 `minikube kubectl create deployment testdev -- --image=localhost:5000/my-go-app`   
 
-### Alt steps for runnning minikube and to avoid going down a rabbit hole of nonsense   
+### Alt steps for running minikube and to avoid going down a rabbit hole of nonsense   
 **Build image**   
 `docker build -t my-go-app .`   
 **Tag image**   
