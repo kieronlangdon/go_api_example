@@ -35,6 +35,7 @@ func getBooks(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(books)
+	log.Printf("Get all books issued")
 }
 
 // Get Single book
@@ -45,6 +46,7 @@ func getBook(w http.ResponseWriter, r *http.Request) {
 	for _, item := range books {
 		if item.ID == params["id"] {
 			json.NewEncoder(w).Encode(item)
+			log.Printf("Get single book issued")
 			return
 		}
 	}
@@ -59,6 +61,7 @@ func createBook(w http.ResponseWriter, r *http.Request) {
 	book.ID = strconv.Itoa(rand.Intn(10000000)) // Mock ID
 	books = append(books, book)
 	json.NewEncoder(w).Encode(book)
+	log.Printf("Single creation of book issued")
 }
 
 // Update a book
@@ -77,6 +80,7 @@ func updateBooks(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	json.NewEncoder(w).Encode(books)
+	log.Printf("Single update issued")
 
 }
 
@@ -91,6 +95,7 @@ func deleteBook(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	json.NewEncoder(w).Encode(books)
+	log.Printf("Single delete issued")
 }
 
 // Delete All Books
@@ -103,6 +108,7 @@ func deleteBooks(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	json.NewEncoder(w).Encode(books)
+	log.Printf("Delete issued")
 }
 
 // Get All Books just titles
@@ -114,6 +120,7 @@ func getBookTitles(w http.ResponseWriter, r *http.Request) {
 	for _, item := range books {
 		json.NewEncoder(w).Encode(item.Title)
 	}
+	log.Printf("Get All Books just titles issued")
 }
 
 //Router handlers
@@ -145,7 +152,9 @@ func Router() *mux.Router {
 }
 
 func main() {
-	log.Print("Server Started...")
+	log.SetPrefix("LOG: ")
+	log.SetFlags(log.Ldate | log.Ltime)
+	log.Println("Server Started...")
 	// Mock Data -@todo - Implement DB
 	books = append(books, Book{ID: "1", Isbn: "448743", Title: "Book one", Author: &Author{Firstname: "John", Lastname: "Doe"}})
 	books = append(books, Book{ID: "2", Isbn: "875468", Title: "Book two", Author: &Author{Firstname: "Steve", Lastname: "Smith"}})
